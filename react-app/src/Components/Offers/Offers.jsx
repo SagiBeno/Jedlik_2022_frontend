@@ -23,7 +23,7 @@ export default class Offers extends React.Component {
                 <h1 className='text-center'>Ajánlataink</h1>
                 <Table striped bordered hover responsive>
                     <thead>
-                        <tr>
+                        <tr style={{verticalAlign: 'middle'}}>
                             <th>Kategória</th>
                             <th>Leírás</th>
                             <th>Hirdetés<br />dátuma</th>
@@ -34,9 +34,9 @@ export default class Offers extends React.Component {
                     <tbody>
                         {
                             this.state.tableData.map( element => 
-                                <tr key={element.id}>
+                                <tr key={element.id} style={{verticalAlign: 'middle'}}>
                                     <td>{element.kategoria}</td>
-                                    <td>{element.leiras}</td>
+                                    <td style={{textAlign: 'left'}}>{element.leiras}</td>
                                     <td>{element.hirdetesDatuma}</td>
 
                                     {

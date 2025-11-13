@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import '../../bootstrap.min.css'
 
 async function fetchCategories(setCategories) {
@@ -8,7 +9,10 @@ async function fetchCategories(setCategories) {
 }
 
 export default function NewAd(props) {
-    const [categories, setCategories] = useState([]);
+    const navigate = useNavigate()
+
+    const [categories, setCategories] = useState([])
+    const [errorMessage, setErrorMessage] = useState(null)
 
     useEffect(() => {
         fetchCategories(setCategories);
@@ -31,7 +35,13 @@ export default function NewAd(props) {
             headers: {'Content-Type': 'application/json'},
             body: requestBodyJson
         })
-        console.log('responseJson ', responseJson)
+        
+        if (responseJson.ok) {
+            form.reset()
+            navigate('/offers')
+        } else {
+            setErrorMessage(`HTTP failure response for http://localhost:3333/api/ujingatlan: ${responseJson.status} ${responseJson.statusText}`)
+        }
     }
 
     return (
@@ -75,10 +85,14 @@ export default function NewAd(props) {
                                 <button className="btn btn-primary px-5">Küldés</button>
                             </div>
 
-                            <div className="alert alert-danger alert-dismissible" role="alert">
-                                <strong>Hiba szövege</strong>
-                                <button type="button" className="btn-close"></button>
-                            </div>
+                            {
+                                errorMessage &&
+                                    <div className="alert alert-danger alert-dismissible" role="alert">
+                                        <strong>{errorMessage}</strong>
+                                        <button type="button" className="btn-close"></button>
+                                    </div>
+                            }
+                            
                         </div>
                     </div>
                 </form>

@@ -1,5 +1,4 @@
 import React from "react";
-import '../bootstrap.min.css'
 import '../openpage.css'
 
 export default class OpenPage extends React.Component {

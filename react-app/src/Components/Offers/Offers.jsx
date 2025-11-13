@@ -46,7 +46,7 @@ export default class Offers extends React.Component {
                                         : 
                                         <td style={{color: 'red'}}>Nem</td>
                                     }
-                                    
+
                                     <td><img src={element.kepUrl} alt="<property image placeholder>" width={200}/></td>
                                 </tr>
                             )

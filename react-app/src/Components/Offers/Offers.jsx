@@ -4,21 +4,24 @@ import '../../bootstrap.min.css'
 
 export default class Offers extends React.Component {
     state = {
-
+        tableData : []
     }
 
     componentDidMount() {
         fetch('http://localhost:3333/api/ingatlan')
-        .then(console.log)
+        .then((res) => res.json())
+        .then((tableData) => {
+            this.setState({tableData})
+        })
         .catch(console.warn)
         .finally( () => {} )
     }
 
     render() {
         return (
-            <div className='page-wrapper'>
+            <div className='page-wrapper mx-auto'>
                 <h1 className='text-center'>Ajánlataink</h1>
-                <Table striped bordered hover>
+                <Table striped bordered hover responsive>
                     <thead>
                         <tr>
                             <th>Kategória</th>
@@ -29,14 +32,25 @@ export default class Offers extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Ház</td>
-                            <td>Leírás</td>
-                            <td>2025.11.13.</td>
-                            <td>Igen</td>
-                            <td><img src="https://almafa.png" alt="" /></td>
-                            <td>1</td>
-                        </tr>
+                        {
+                            this.state.tableData.map( element => 
+                                <tr key={element.id}>
+                                    <td>{element.kategoria}</td>
+                                    <td>{element.leiras}</td>
+                                    <td>{element.hirdetesDatuma}</td>
+
+                                    {
+                                        element.tehermentes
+                                        ?
+                                        <td style={{color: 'green'}}>Igen</td>
+                                        : 
+                                        <td style={{color: 'red'}}>Nem</td>
+                                    }
+                                    
+                                    <td><img src={element.kepUrl} alt="<property image placeholder>" width={200}/></td>
+                                </tr>
+                            )
+                        }
                     </tbody>
                 </Table>
             </div>

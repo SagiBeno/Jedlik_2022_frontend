@@ -1,6 +1,7 @@
 import {Routes, Route} from 'react-router-dom'
 import './bootstrap.min.css'
 import OpenPage from './Components/OpenPage/OpenPage'
+import Offers from './Components/Offers/Offers'
 
 function App() {
   
@@ -8,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<OpenPage />} />
-      <Route path='/offers' element={<OpenPage />} />
+      <Route path='/offers' element={<Offers />} />
     </Routes>
   )
 }

@@ -1,6 +1,19 @@
+import { useEffect, useState } from 'react'
 import '../../bootstrap.min.css'
 
+async function fetchCategories(setCategories) {
+    const json = await fetch('http://localhost:3333/api/kategoriak')
+    const data = await json.json()
+    setCategories(data)
+}
+
 export default function NewAd(props) {
+    const [categories, setCategories] = useState([]);
+
+    useEffect( () => {
+        fetchCategories(setCategories);
+    }, [])
+
     return (
         <div className='page-wrapper'>
             <div className="container">
@@ -11,12 +24,11 @@ export default function NewAd(props) {
                             <label htmlFor="category" className="form-label">Ingatlan kategóriája</label>
                             <select className="form-select" name="kategoriaId">
                                 <option value="0">Kérem válasszon</option>
-                                <option value="1">Ház</option>
-                                <option value="2">Lakás</option>
-                                <option value="3">Építési telek</option>
-                                <option value="4">Garázs</option>
-                                <option value="5">Mezőgazdasági terület</option>
-                                <option value="6">Ipari ingatlan</option>
+                                {
+                                    categories.map((category) => (
+                                        <option key={category.id} value={category.id}>{category.megnevezes}</option>
+                                    ))
+                                }
                             </select>
                         </div>
 

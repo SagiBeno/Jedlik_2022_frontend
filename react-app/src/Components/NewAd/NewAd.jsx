@@ -14,7 +14,7 @@ export default function NewAd(props) {
         fetchCategories(setCategories);
     }, [])
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault()
         const form = event.target
         const formData = {
@@ -25,7 +25,13 @@ export default function NewAd(props) {
             kepUrl: form.kepUrl.value
         }
 
-        console.log(formData)
+        const requestBodyJson = JSON.stringify(formData)
+        const responseJson = await fetch('http://localhost:3333/api/ujingatlan', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: requestBodyJson
+        })
+        console.log('responseJson ', responseJson)
     }
 
     return (
@@ -38,7 +44,6 @@ export default function NewAd(props) {
                             <div className="mb-3">
                                 <label htmlFor="category" className="form-label">Ingatlan kategóriája</label>
                                 <select className="form-select" name="kategoriaId">
-                                    <option value="0">Kérem válasszon</option>
                                     {
                                         categories.map((category) => (
                                             <option key={category.id} value={category.id}>{category.megnevezes}</option>
@@ -56,7 +61,7 @@ export default function NewAd(props) {
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="description" className="form-label">Ingatlan leírása</label>
-                                <textarea className="form-control" name="leiras" rows="3"></textarea>
+                                <textarea className="form-control" name="leiras" rows="3" required></textarea>
                             </div>
                             <div className="form-check mb-3">
                                 <input className="form-check-input" type="checkbox" name="tehermentes" checked />
@@ -64,7 +69,7 @@ export default function NewAd(props) {
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="pictureUrl" className="form-label">Fénykép az ingatlanról</label>
-                                <input type="url" className="form-control" name="kepUrl" />
+                                <input type="url" className="form-control" name="kepUrl" required/>
                             </div>
                             <div className="mb-3 text-center">
                                 <button className="btn btn-primary px-5">Küldés</button>

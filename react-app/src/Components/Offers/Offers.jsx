@@ -3,6 +3,17 @@ import { Table } from 'react-bootstrap'
 import '../../bootstrap.min.css'
 
 export default class Offers extends React.Component {
+    state = {
+
+    }
+
+    componentDidMount() {
+        fetch('http://localhost:3333/api/ingatlan')
+        .then(console.log)
+        .catch(console.warn)
+        .finally( () => {} )
+    }
+
     render() {
         return (
             <div className='page-wrapper'>

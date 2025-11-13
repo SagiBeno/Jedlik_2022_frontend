@@ -13,7 +13,7 @@ export default function OpenPage(props) {
                             <Link className="btn btn-primary" to='/offers'>Nézze meg kínálatunkat!</Link>
                         </div>
                         <div className="col-12 col-sm-6 text-center">
-                            <Link  className="btn btn-primary" to='/'>Hirdessen nálunk!</Link>
+                            <Link className="btn btn-primary" to='/newad'>Hirdessen nálunk!</Link>
                         </div>
                     </div>
                 </div>
